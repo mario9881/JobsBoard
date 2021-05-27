@@ -19,18 +19,22 @@
 
 		$user = arrayResultFromQuery(
 			"SELECT * FROM admins
-			WHERE username = '$username'
-			AND password_hash = '$password'"
+			WHERE username = '$username'"
 		);
 		
 		if(empty($user)){
-			die("Error! User not found!");
+			die("Error! Wrong username or password!");
 		}
 		else{
-			$_SESSION["username"] = $username;
-		}
-
-		header("Location: dashboard.php");
+			$passwordHash = $user[0]["password_hash"];
+			if(password_verify($password, $passwordHash)){
+				$_SESSION["username"] = $username;
+				header("Location: dashboard.php");
+			}
+			else{
+				die("Error! Wrong username or password!");
+			}
+		}	
 	}
 ?>
 <!DOCTYPE html>
@@ -60,6 +64,12 @@
                 </form>
             </li>
 		</ul>
+
+		<a href="index.php">Job Offers</a>
+		<a href="login.php">Login</a>
+		<a href="dashboard.php">Dashboard</a>
+		<a href="submit_offer.php">Submit offer</a>
+		<a href="register.php">Register</a>
 		
 		<footer class="site-footer">
 			<p>Copyright 2021 | Developer links: 

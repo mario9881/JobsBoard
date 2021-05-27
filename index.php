@@ -69,6 +69,12 @@
 
 			<?php } ?>
 		</ul>
+			
+		<a href="index.php">Job Offers</a>
+		<a href="login.php">Login</a>
+		<a href="dashboard.php">Dashboard</a>
+		<a href="submit_offer.php">Submit offer</a>
+		<a href="register.php">Register</a>
 
 		<form method="post">
 			<input type="submit" name="logout" value="LOGOUT">

@@ -6,15 +6,14 @@
 
 	$GLOBALS["dbConnection"] = new mysqli("localhost", "root", "", "jobsboard");
 
-	if(isset($_POST["submit-form"])) {
-		$title = $_POST["job-title"];
-		$companyName = $_POST["company-name"];
-		$salary = $_POST["salary"];
-		$jobType = $_POST["job-type"];
+	if(isset($_POST["register"])) {
+		$username = $_POST["username"];
+		$password = $_POST["password"];
+		$passwordHash = password_hash(password, PASSWORD_DEFAULT);
 
 		$GLOBALS["dbConnection"]->query(
-			"INSERT INTO offers (title, companyName, salary, jobType)
-			VALUES('$title', '$companyName', $salary, '$jobType')"
+			"INSERT INTO admins (username, password_hash)
+			VALUES('$username', '$passwordHash')"
 		);
 
 		header("Location: submit_offer.php");
@@ -47,11 +46,9 @@
 		<ul class="jobs-listing">	
             <li class="job-card">
                 <form method="post">
-                    <p>Job Title: <input type="text" name="job-title"></p>
-                    <p>Company Name: <input type="text" name="company-name"></p>
-                    <p>Job Type: <input type="text" name="job-type"></p>
-                    <p>Salary: <input type="number" name="salary"></p>
-					<p><input type="submit" name="submit-form" value="Submit offer"></p>
+					<p>Username: <input type="text" name="username"></p>
+                    <p>Password: <input type="password" name="password"></p>
+					<p><input type="submit" name="register" value="REGISTER"></p>
                 </form>
             </li>
 		</ul>
