@@ -1,4 +1,9 @@
 <?php
+	session_start();
+	if($_SESSION["username"] == ""){
+		header("Location: login.php");
+	}
+
 	$GLOBALS["dbConnection"] = new mysqli("localhost", "root", "", "jobsboard");
 
 	if(isset($_POST["submit-form"])) {
@@ -13,6 +18,12 @@
 		);
 
 		header("Location: submit_offer.php");
+	}
+
+	if(isset($_POST["logout"])){
+		session_destroy();
+
+		header("Location: index.php");
 	}
 ?>
 <!DOCTYPE html>
@@ -44,6 +55,10 @@
                 </form>
             </li>
 		</ul>
+
+		<form method="post">
+			<input type="submit" name="logout" value="LOGOUT">
+		</form>
 		
 		<footer class="site-footer">
 			<p>Copyright 2021 | Developer links: 

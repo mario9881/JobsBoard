@@ -26,6 +26,12 @@
 		header("Location: dashboard.php");
 	}
 
+	if(isset($_POST["logout"])){
+		session_destroy();
+
+		header("Location: index.php");
+	}
+
 	function arrayResultFromQuery($sql) {
 		$array = [];
 		if ($queryResult = $GLOBALS["dbConnection"]->query($sql)) {
@@ -93,6 +99,10 @@
 
 			<?php } ?>
 		</ul>
+
+		<form method="post">
+			<input type="submit" name="logout" value="LOGOUT">
+		</form>
 		
 		<footer class="site-footer">
 			<p>Copyright 2021 | Developer links: 

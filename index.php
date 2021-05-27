@@ -1,4 +1,6 @@
 <?php
+	session_start();
+
 	$GLOBALS["dbConnection"] = new mysqli("localhost", "root", "", "jobsboard");
 
 	function arrayResultFromQuery($sql) {
@@ -9,6 +11,12 @@
 			}
 		}
 		return $array;
+	}	
+	
+	if(isset($_POST["logout"])){
+		session_destroy();
+
+		header("Location: index.php");
 	}
 
 	$allOffers = arrayResultFromQuery(
@@ -61,6 +69,10 @@
 
 			<?php } ?>
 		</ul>
+
+		<form method="post">
+			<input type="submit" name="logout" value="LOGOUT">
+		</form>
 		
 		<footer class="site-footer">
 			<p>Copyright 2021 | Developer links: 
