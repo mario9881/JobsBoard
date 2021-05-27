@@ -65,11 +65,11 @@
             </li>
 		</ul>
 
-		<a href="index.php">Job Offers</a>
-		<a href="login.php">Login</a>
-		<a href="dashboard.php">Dashboard</a>
-		<a href="submit_offer.php">Submit offer</a>
-		<a href="register.php">Register</a>
+		<p><a href="index.php">Job Offers</a></p>
+		<p><a href="login.php">Login</a></p>
+		<p><a href="dashboard.php">Dashboard</a></p>
+		<p><a href="submit_offer.php">Submit offer</a></p>
+		<p><a href="register.php">Register</a></p>
 		
 		<footer class="site-footer">
 			<p>Copyright 2021 | Developer links: 
