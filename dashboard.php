@@ -1,6 +1,26 @@
 <?php
 	$GLOBALS["dbConnection"] = new mysqli("localhost", "root", "", "jobsboard");
 
+	if(isset($_POST["approve-offer"])){
+		$offerId = $_POST["offer-id"];
+		$GLOBALS["dbConnection"]->query(
+			"UPDATE offers 
+			SET status = 'approved'
+			WHERE id = $offerId"
+		);
+		header("Location: dashboard.php");
+	}
+
+	if(isset($_POST["reject-offer"])){
+		$offerId = $_POST["offer-id"];
+		$GLOBALS["dbConnection"]->query(
+			"UPDATE offers 
+			SET status = 'rejected'
+			WHERE id = $offerId"
+		);
+		header("Location: dashboard.php");
+	}
+
 	function arrayResultFromQuery($sql) {
 		$array = [];
 		if ($queryResult = $GLOBALS["dbConnection"]->query($sql)) {
@@ -12,10 +32,10 @@
 	}
 
 	$allOffers = arrayResultFromQuery(
-		"SELECT * FROM offers 
+		"SELECT *, offers.id AS offerId FROM offers 
 		 JOIN companies 
 		 ON offers.companyName = companies.name
-		 WHERE offers.status = 'approved'"
+		 WHERE offers.status = 'waiting'"
 	);
 
 ?>
@@ -25,7 +45,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Jobs</title>
+	<title>Dashboard</title>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 
 	<link rel="stylesheet" href="./css/master.css">
@@ -34,7 +54,7 @@
 <body>
 	<div class="site-wrapper">
 		<header class="site-header">
-			<h1 class="site-title"><a href="#">Job Offers</a></h1>
+			<h1 class="site-title"><a href="#">Waiting offers</a></h1>
 		</header>
 
 		<ul class="jobs-listing">
@@ -51,6 +71,11 @@
 							<span class="job-location"><?php echo $offer["location"];?></span>
 							<span class="job-type"><?php echo $offer["jobType"]; ?></span>
 						</div>
+						<form method="post">
+							<p><input type="submit" name="approve-offer" value="Approve offer"></p>
+							<p><input type="submit" name="reject-offer" value="Reject offer"></p>
+							<input type="hidden" name="offer-id" value="<?php echo $offer['offerId']; ?>">
+						</form>
 					</div>
 					<div class="job-logo">
 						<div class="job-logo-box">
