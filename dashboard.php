@@ -1,4 +1,9 @@
 <?php
+	session_start();
+	if($_SESSION["username"] == ""){
+		header("Location: login.php");
+	}
+
 	$GLOBALS["dbConnection"] = new mysqli("localhost", "root", "", "jobsboard");
 
 	if(isset($_POST["approve-offer"])){
@@ -56,6 +61,8 @@
 		<header class="site-header">
 			<h1 class="site-title"><a href="#">Waiting offers</a></h1>
 		</header>
+
+		<div>Hello, <?php echo $_SESSION["username"] ?></div>
 
 		<ul class="jobs-listing">
 			<?php foreach($allOffers as $offer) { ?>
