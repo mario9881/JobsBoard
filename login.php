@@ -29,6 +29,7 @@
 			$passwordHash = $user[0]["password_hash"];
 			if(password_verify($password, $passwordHash)){
 				$_SESSION["username"] = $username;
+				//header("Location: dashboard.php");
 				header("Location: dashboard.php");
 			}
 			else{
